@@ -9,6 +9,8 @@ import BoardCell from './BoardCell';
 const Preview = ({ tetromino, index }) => {
   const { shape, className } = tetromino;
   const board = buildBoard({ rows: 4, columns: 4 });
+  console.log('board.rows');
+  console.log(board.rows);
 
   const style = { top: `${index * 15}vw` };
 

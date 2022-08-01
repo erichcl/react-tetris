@@ -1,6 +1,6 @@
 import { defaultCell } from './Cell';
 
-export const buildBoard = (rows, columns) => {
+export const buildBoard = ({ rows, columns }) => {
   const buildRows = Array.from({ length: rows }, () =>
     Array.from({ length: columns }, () => ({ ...defaultCell }))
   );
