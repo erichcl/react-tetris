@@ -86,3 +86,15 @@ export const transferToBoard = ({
 
   return rows;
 };
+
+export const rotate = ({ piece, direction }) => {
+  const newPiece = piece.map((_, index) =>
+    piece.map((column) => column[index])
+  );
+
+  if (direction > 0) {
+    return newPiece.map((row) => row.reverse());
+  }
+
+  return newPiece.reverse();
+};
