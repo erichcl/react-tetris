@@ -31,6 +31,11 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
     shape: tetromino.shape,
   });
 
+  if (player.collided || player.isFastDropping) {
+    resetPlayer();
+  }
+
+  // returns the next board
   return {
     rows,
     size: { ...board.size },
@@ -67,7 +72,7 @@ export const hasCollision = ({ board, position, shape }) => {
   for (let y = 0; y < shape.length; y++) {
     const row = y + position.row;
     // loop through the columns
-    for (let x = 0; x < shape[y].lenght; x++) {
+    for (let x = 0; x < shape[y].length; x++) {
       // if there's a piece of the tetromino in this position
       if (shape[y][x]) {
         const column = x + position.column;
