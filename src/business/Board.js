@@ -20,8 +20,8 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
 
   const furthestRight = board.size.columns - tetromino.shape.length;
 
-  const randomColumn = Math.floor(Math.random() * furthestRight);
-  position.column = randomColumn;
+  // const randomColumn = Math.floor(Math.random() * furthestRight);
+  // position.column = randomColumn;
 
   rows = transferToBoard({
     className: tetromino.className,
@@ -39,14 +39,19 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
 
 export const isWithinBoard = ({ board, position, shape }) => {
   // loop through the rows
+  console.log(shape);
+  console.log(shape.length);
   for (let y = 0; y < shape.length; y++) {
     const row = y + position.row;
     // loop through the columns
-    for (let x = 0; x < shape[y].lenght; x++) {
+    for (let x = 0; x < shape[y].length; x++) {
+      console.log(shape[y].length);
       // if there's a piece of the tetromino in this position
       if (shape[y][x]) {
+        console.log(shape.length);
         const column = x + position.column;
         const isValidPosition = board.rows[row] && board.rows[row][column];
+        console.log(`row: ${row}, column: ${column}`);
 
         if (!isValidPosition) {
           return false;
