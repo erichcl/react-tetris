@@ -19,3 +19,6 @@ export const Key = {
 };
 
 export const actionForKey = (keyCode) => Key[keyCode];
+
+export const actionIsDrop = (action) =>
+  action === Action.SlowDrop || action === Action.FastDrop;

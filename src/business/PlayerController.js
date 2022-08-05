@@ -20,8 +20,6 @@ export const movePlayer = ({ delta, position, shape, board }) => {
     shape,
   });
 
-  console.log(isOnBoard);
-
   const preventMove = !isOnBoard || (isOnBoard && collided);
   const nextPosition = preventMove ? position : desiredNextPosition;
 
@@ -92,24 +90,12 @@ const attemptRotation = ({ board, player, setPlayer }) => {
   }
 };
 
-export const playerController = ({
-  action,
-  board,
-  player,
-  setPlayer,
-  setGameOver,
-}) => {
-  if (!action) return;
+const pieceController = ({ action, board, player, setPlayer, setGameOver }) => {
   // eslint-disable-next-line default-case
   switch (action) {
-    case Action.Quit:
-      setGameOver(true);
-      break;
-
     case Action.Rotate:
       attemptRotation({ board, player, setPlayer });
       break;
-
     case Action.Left:
       attemptMovement({
         board,
@@ -150,5 +136,43 @@ export const playerController = ({
         isFastDroping: false,
       });
       break;
+  }
+};
+
+export const playerController = ({
+  action,
+  board,
+  player,
+  setPlayer,
+  setGameOver,
+  isPaused,
+  pause,
+  resume,
+}) => {
+  if (!action) return;
+
+  switch (action) {
+    case Action.Quit:
+      setGameOver(true);
+      break;
+    case Action.Pause:
+      console.log('pause');
+      console.log(isPaused);
+      if (!isPaused) {
+        pause();
+      } else {
+        resume();
+      }
+      break;
+    default:
+      if (!isPaused) {
+        pieceController({
+          action,
+          board,
+          player,
+          setPlayer,
+          setGameOver,
+        });
+      }
   }
 };
