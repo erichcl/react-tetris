@@ -64,6 +64,8 @@ const attemptMovement = ({
     isFastDroping,
     position: nextPosition,
   });
+
+  console.log(player.isFastDroping);
 };
 
 const attemptRotation = ({ board, player, setPlayer }) => {
@@ -117,6 +119,7 @@ const pieceController = ({ action, board, player, setPlayer, setGameOver }) => {
       });
       break;
     case Action.FastDrop:
+      console.log('fast drop');
       attemptMovement({
         board,
         player,
