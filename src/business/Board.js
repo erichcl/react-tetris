@@ -64,7 +64,26 @@ export const nextBoard = ({ board, player, resetPlayer, addLinesCleared }) => {
       shape: tetromino.shape,
     });
   }
-  console.log('player.isFastDroping', player.isFastDroping);
+
+  // checke completed lines
+
+  const blankRow = rows[0].map((_) => ({ ...defaultCell }));
+  let linesCleared = 0;
+  rows = rows.reduce((acc, row) => {
+    if (row.every((column) => column.occupied)) {
+      linesCleared++;
+      acc.unshift([...blankRow]);
+    } else {
+      acc.push(row);
+    }
+    return acc;
+  }, []);
+
+  if (linesCleared > 0) {
+    addLinesCleared(linesCleared);
+  }
+
+  // if collided, reset player (spawn the new piece on top)
   if (player.collided || player.isFastDroping) {
     console.log('player.isFastDroping', player.isFastDroping);
     resetPlayer();
